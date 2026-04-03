@@ -1,0 +1,27 @@
+#EXTM3U
+
+#EXTINF:-1 tvg-id="sony_yay" tvg-name="SONY YAY" tvg-logo="http://localhost/images/sony_yay.png" group-title="Kids",SONY YAY
+http://localhost/live/sony_yay.m3u8
+
+#EXTINF:-1 tvg-id="cartoon_network" tvg-name="Cartoon Network" tvg-logo="http://localhost/images/cartoon_network.png" group-title="Kids",Cartoon Network
+http://localhost/live/cartoon_network.m3u8
+
+#EXTINF:-1 tvg-id="set_india" tvg-name="Sony Entertainment Television" tvg-logo="http://localhost/images/set.png" group-title="Entertainment",Sony Entertainment Television
+http://localhost/live/set_india.m3u8
+
+#EXTINF:-1 tvg-id="sony_sab" tvg-name="Sony Sab" tvg-logo="http://localhost/images/sony_sab.png" group-title="Entertainment",Sony Sab
+http://localhost/live/sony_sab.m3u8
+
+#EXTINF:-1 tvg-id="star_plus" tvg-name="StarPlus" tvg-logo="http://localhost/images/star_plus.png" group-title="Entertainment",StarPlus
+http://localhost/live/star_plus.m3u8
+
+#EXTINF:-1 tvg-id="zee_tv" tvg-name="ZEETV" tvg-logo="http://localhost/images/zeetv.png" group-title="Entertainment",ZEETV
+http://localhost/live/zee_tv.m3u8
+
+#EXTINF:-1 tvg-id="utv_action" tvg-name="UTV Action" tvg-logo="http://localhost/images/utv_action.png" group-title="Movies",UTV Action
+http://localhost/live/utv_action.m3u8
+
+
+https://new-admin-api.test/local_epg.xml
+
+https://new-admin-api.test/channels.m3u

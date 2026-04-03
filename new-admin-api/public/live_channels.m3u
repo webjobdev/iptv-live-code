@@ -1,0 +1,43 @@
+#EXTM3U
+
+#EXTINF:-1 tvg-id="aande" tvg-name="A&E" tvg-logo="http://localhost/images/aande.png" group-title="Entertainment",A&E
+http://localhost/live/aande.m3u8
+
+#EXTINF:-1 tvg-id="comedy_central" tvg-name="Comedy Central" tvg-logo="http://localhost/images/comedy_central.png" group-title="Comedy",Comedy Central
+http://localhost/live/comedy_central.m3u8
+
+#EXTINF:-1 tvg-id="paramount_network" tvg-name="Paramount Network" tvg-logo="http://localhost/images/paramount_network.png" group-title="Drama",Paramount Network
+http://localhost/live/paramount_network.m3u8
+
+#EXTINF:-1 tvg-id="bbc_news" tvg-name="BBC News" tvg-logo="http://localhost/images/bbc_news.png" group-title="News",BBC News
+http://localhost/live/bbc_news.m3u8
+
+#EXTINF:-1 tvg-id="cnn" tvg-name="CNN" tvg-logo="http://localhost/images/cnn.png" group-title="News",CNN
+http://localhost/live/cnn.m3u8
+
+#EXTINF:-1 tvg-id="history" tvg-name="History" tvg-logo="http://localhost/images/history.png" group-title="Documentary",History
+http://localhost/live/history.m3u8
+
+#EXTINF:-1 tvg-id="natgeo_wild" tvg-name="National Geographic Wild" tvg-logo="http://localhost/images/natgeo_wild.png" group-title="Wildlife",National Geographic Wild
+http://localhost/live/natgeo_wild.m3u8
+
+#EXTINF:-1 tvg-id="natgeo" tvg-name="National Geographic" tvg-logo="http://localhost/images/natgeo.png" group-title="Science",National Geographic
+http://localhost/live/natgeo.m3u8
+
+#EXTINF:-1 tvg-id="motor_trend" tvg-name="Motor Trend" tvg-logo="http://localhost/images/motor_trend.png" group-title="Auto",Motor Trend
+http://localhost/live/motor_trend.m3u8
+
+#EXTINF:-1 tvg-id="nba_tv" tvg-name="NBA TV" tvg-logo="http://localhost/images/nba_tv.png" group-title="Sports",NBA TV
+http://localhost/live/nba_tv.m3u8
+
+#EXTINF:-1 tvg-id="cartoon_network" tvg-name="Cartoon Network" tvg-logo="http://localhost/images/cartoon_network.png" group-title="Kids",Cartoon Network
+http://localhost/live/cartoon_network.m3u8
+
+#EXTINF:-1 tvg-id="disney_xd" tvg-name="Disney XD" tvg-logo="http://localhost/images/disney_xd.png" group-title="Kids",Disney XD
+http://localhost/live/disney_xd.m3u8
+
+#EXTINF:-1 tvg-id="sony_movies" tvg-name="Sony Movies" tvg-logo="http://localhost/images/sony_movies.png" group-title="Movies",Sony Movies
+http://localhost/live/sony_movies.m3u8
+
+
+http://15.204.253.153/ott-laravel/new-admin-api/public/live_epg.xml

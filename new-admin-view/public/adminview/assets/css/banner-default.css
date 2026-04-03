@@ -1,0 +1,12 @@
+.stat-0.file-success {
+  display: block;
+}
+.stat-0.file-active {
+  display: block;
+}
+.stat-0.file-error {
+  display: block;
+}
+.stat-0 {
+  display: none;
+}

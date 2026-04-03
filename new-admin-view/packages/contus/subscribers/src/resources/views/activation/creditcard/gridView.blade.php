@@ -1,0 +1,471 @@
+<!-- credit table code -->
+<div id="creditcard">
+    <div id="table_loader" class="table_loader_container" data-ng-show="gridLoadingBar">
+        <div class="table_loader">
+            <div class="loader"></div>
+        </div>
+    </div>
+    <div class="table_responsive">
+        <table class="table subscription-plan-grid" id="fixTable" data-ng-class="{'no-records': noRecords}">
+            <thead>
+                <tr>
+                    @include('audio::admin.common.bulkActionLayout', ['access_type' => 'subscribers'])
+                    <th data-ng-repeat="field in heading"
+                        ng-class="{'centre': field.name == 'No. of Videos' || field.name == 'order'}">
+                        @{{field.name}}
+                        <span data-ng-if="field.sort==true" id="" class="th-inner sortable both"
+                            data-ng-class="{showGridArrow:field.sort}"
+                            data-ng-click="fieldOrder($event,field.value)"></span>
+                        <span data-ng-if="field.sort==false" data-ng-class="{showGridArrow:field.sort}"></span>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="search_text">
+                    <td></td>
+                    <td></td>
+                    <td class="search_product">
+                        <input type="text" class="form-control" data-ng-model="searchRecords.profile_name"
+                            placeholder="Profile Name" data-boot-tooltip="true" data-toggle="tooltip"
+                            data-original-title="profile name">
+                    </td>
+                    <td>
+                        <select class="form-control mb15 select2_custom_ddl" minimumResults="-1"
+                            data-jquery="select2_custom_ddl" data-boot-tooltip="true"
+                            data-ng-model="searchRecords.is_active" data-ng-change="search()" data-toggle="tooltip"
+                            data-original-title="{{trans('base::general.select_status')}}">
+                            <option value="all">{{trans('base::general.all')}}</option>
+                            <option value='1'>{{trans('customer::subscription.active')}}</option>
+                            <option value='0'>{{trans('customer::subscription.inactive')}}</option>
+                        </select>
+                    </td>
+                    <td class="search_product td-custom-width">
+                        <input type="text" class="form-control" data-ng-model="searchRecords.card_type"
+                            placeholder="Card Type" data-boot-tooltip="true" data-toggle="tooltip"
+                            data-original-title="type">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <select class="form-control mb15 select2_custom_ddl" minimumResults="-1"
+                            data-jquery="select2_custom_ddl" data-boot-tooltip="true"
+                            data-ng-model="searchRecords.security_type" data-ng-change="search()" data-toggle="tooltip"
+                            data-original-title="{{trans('base::general.select_status')}}">
+                            <option value="all">{{trans('base::general.all')}}</option>
+                            <option value='1'>Local</option>
+                            <option value='0'>Authorized</option>
+                        </select>
+                    </td>
+                    <td></td>
+                    <td>
+                        <select class="form-control mb15 select2_custom_ddl" minimumResults="-1"
+                            data-jquery="select2_custom_ddl" data-boot-tooltip="true"
+                            data-ng-model="searchRecords.billing_address" data-ng-change="search()"
+                            data-toggle="tooltip" data-original-title="{{trans('base::general.select_status')}}">
+                            <option value="all">{{trans('base::general.all')}}</option>
+                            <option value='1'>Custom</option>
+                            <option value='0'>Subscriber's Billing</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr data-ng-if="noRecords">
+                    <td colspan="8" colspan="@{{heading.length + 1}}" class="no-data center">
+                        {{trans('base::general.not_found')}}
+                    </td>
+                </tr>
+                <tr data-ng-if="showRecords"
+                    data-ng-repeat="record in records | filter:{ subscriber_id: subscriberIdFromUrl } track by $index"
+                    data-ng-show="showRecords" class="list-repeat" data-intialize-sidebar="">
+                    <td>
+                        <div class="ckbox ckbox-default">
+                            <input type="checkbox" class="checkbox" id="roles_@{{record.id}}"
+                                ng-click="selectRecord($event, record.id)" value="@{{record.id}}"
+                                name="selectedCheckbox[]">
+                            <label for="roles_@{{record.id}}"></label>
+                        </div>
+                    </td>
+                    <!-- <td></td> -->
+
+                    <td class="serial_number">@{{ ((currentPage - 1) * rowsPerPage) + $index + 1 }}</td>
+                    <td class="">@{{record.profile_name}}</td>
+                    <td data-ng-style="{'color': record.is_active == 1 ? 'green' : 'red'}">
+                        @{{ record.is_active == 1 ? 'Ok' : 'Disabled' }}
+                    </td>
+                    <td class="td-custom-width">@{{ record.card_type }}</td>
+                    <td class="">@{{ record.card_number.slice(-4) }}</td>
+                    <td class="">@{{record.expiration_month + ' ' + record.expiration_year}}</td>
+                    <td class="">@{{ record.security_type }}</td>
+                    <td class="">@{{record.subscription}}</td>
+                    <td class="">
+                        @{{ record.billing_address == 0 ? "Subscriber's Billing" : "Custom" }}
+                    </td>
+                    <td class="td-custom-width">@{{ record.first_name + ' ' + record.last_name }}</td>
+
+                    <td class="table-action">
+                        <div class="flexbox align-items-center justify-center">
+
+                            <div data-ng-if="checkAccess('credit_cards.edit')" class="form-group row"
+                                style="margin-bottom: 0px; margin-right: 5px;">
+                                <label class="switch">
+                                    <input type="checkbox" ng-checked="record.is_active == 1"
+                                        ng-click="togglePublishNow(record, record.id)">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <!-- edit button (class="table_action sidepanel-open")-->
+                            <div data-ng-if="checkAccess('credit_cards.edit')"
+                                class="column edit_table_icon tooltip-parent">
+                                <button data-ng-click="credCtrl.editcredit(record)">
+                                    <svg viewBox="0 0 12 11" x="0px" y="0px" width="12px" height="11px">
+                                        <g>
+                                            <path
+                                                d="M 10.7871 0.7184 C 9.8401 -0.2303 8.3003 -0.2303 7.3535 0.7184 L 1.0581 7.0082 C 1.0085 7.0574 0.9783 7.1206 0.969 7.1885 L 0.5024 10.6415 C 0.4885 10.74 0.5237 10.8383 0.5916 10.9062 C 0.6504 10.9648 0.7322 10.9998 0.8145 10.9998 C 0.8284 10.9998 0.8423 10.9998 0.8564 10.9976 L 2.9377 10.7165 C 3.1111 10.693 3.2332 10.5337 3.2097 10.3604 C 3.186 10.1871 3.0269 10.0652 2.8535 10.0886 L 1.1846 10.3135 L 1.5103 7.9054 L 4.0464 10.4401 C 4.105 10.4985 4.1873 10.5337 4.269 10.5337 C 4.3511 10.5337 4.4333 10.5009 4.4919 10.4401 L 10.7871 4.1502 C 11.2463 3.6911 11.4998 3.0821 11.4998 2.4332 C 11.4998 1.7842 11.2463 1.1752 10.7871 0.7184 ZM 7.4753 1.4914 L 8.5325 2.5479 L 2.7876 8.2896 L 1.7307 7.2331 L 7.4753 1.4914 ZM 4.2712 9.77 L 3.2378 8.737 L 8.9822 2.9954 L 10.0159 4.0284 L 4.2712 9.77 ZM 10.4568 3.5763 L 7.9277 1.0486 C 8.2488 0.784 8.6497 0.6387 9.0715 0.6387 C 9.5518 0.6387 10.0022 0.8261 10.3418 1.1634 C 10.6816 1.5008 10.8669 1.9529 10.8669 2.4332 C 10.8669 2.8572 10.7214 3.2554 10.4568 3.5763 Z"
+                                                fill="#454545"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <span class="tooltip_title">{{trans('base::general.edit')}}</span>
+                            </div>
+
+                            <!-- delete button -->
+                            <div class="tooltip-parent" data-ng-if="checkAccess('credit_cards.delete')">
+                                <span ng-mouseover="getTooltip($event)" data-toggle="modal" data-target="#deleteModal"
+                                    ng-click="deleteSingleRecord(record.id)" class="tooltips delete_table_icon"
+                                    data-boot-tooltip="true" data-original-title="">
+                                    <svg viewBox="0 0 11 12" x="0px" y="0px" width="11px" height="12px">
+                                        <g data-original-title="" title="">
+                                            <path
+                                                d="M 10.4998 3.513 L 9.6099 3.513 L 8.9153 11.6068 C 8.8962 11.8292 8.7144 11.9998 8.4966 11.9998 L 2.4885 11.9998 C 2.2708 11.9998 2.0889 11.8293 2.0701 11.6069 L 1.3752 3.513 L 0.4995 3.513 L 0.4995 2.6513 L 3.4268 2.6513 L 3.4268 1.7179 C 3.4268 1.322 3.741 0.9999 4.1272 0.9999 L 6.8721 0.9999 C 7.2583 0.9999 7.5725 1.322 7.5725 1.7179 L 7.5725 2.6513 L 10.4998 2.6513 L 10.4998 3.513 ZM 6.7322 1.8615 L 4.2668 1.8615 L 4.2668 2.6513 L 6.7322 2.6513 L 6.7322 1.8615 ZM 2.2188 3.513 L 2.873 11.1383 L 8.1121 11.1383 L 8.7661 3.513 L 2.2188 3.513 ZM 6.5222 9.8588 L 6.7043 4.7609 L 7.5442 4.7924 L 7.3621 9.8902 L 6.5222 9.8588 ZM 5.0796 4.7767 L 5.9199 4.7767 L 5.9199 9.8746 L 5.0796 9.8746 L 5.0796 4.7767 ZM 3.4551 4.7923 L 4.2949 4.7608 L 4.4771 9.8586 L 3.6372 9.8902 L 3.4551 4.7923 Z"
+                                                fill="#454545"></path>
+                                        </g>
+                                    </svg>
+                                    <span class="tooltip_title">{{trans('base::general.delete')}}</span>
+                                </span>
+                            </div>
+
+                            
+
+                            
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <!-- @include('audio::admin.common.singleRecordDeleteModal')
+    @include('audio::admin.common.singleRecordStatusUpdateModal') -->
+    @include('base::layouts.pagination')
+</div>
+
+<style>
+    .sidepanel-scroll {
+        max-height: calc(97vh - 120px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 10px;
+    }
+</style>
+
+<!-- create credit code -->
+<div class="sidepanel">
+    <div class="overlay"></div>
+    <div class="pop_over_continer form-page">
+        <form name="creditcardForm" id="creditcardForm" method="POST" data-base-validator
+            data-ng-submit="credCtrl.save($event, credCtrl.credit.id)" enctype="multipart/form-data">
+
+            {!! csrf_field() !!}
+
+            <!-- <input type="hidden" id="subscriber-id" name="id">
+
+            <script>
+                document.getElementById('subscriber-id').value = window.location.pathname.split('/').pop();
+            </script> -->
+
+            <input type="hidden" id="subscriber-id" name="subscriber-id"
+                value="{{ request()->query('subscriber-id') }}">
+
+            <div class="sidepanel-header flexbox align-items-center">
+                <h5 data-ng-if="!credCtrl.credit.id">Create Subscribers Credit Card</h5>
+                <h5 data-ng-if="credCtrl.credit.id">Edit Subscriber Credit Card</h5>
+            </div>
+
+            <div class="sidepanel-scroll">
+                @include('base::partials.errors')
+
+                <!-- profile name -->
+                <div class="form-group">
+                    <label>Profile Name <span class="required">*</span></label>
+                    <div class="form-input">
+                        <input type="text" name="profile_name" data-unique="@{{credCtrl.uniqueRoute}}"
+                            data-ng-model="credCtrl.credit.profile_name" class="form-control"
+                            placeholder="Enter profile Name" />
+                    </div>
+                    <p class="error-msg">@{{ errors.first_name.message }}</p>
+                </div>
+
+                <!-- card type -->
+                <div class="form-group">
+                    <label>
+                        <!-- {{trans('credit::admincredit.security_type')}} -->
+                        Card Type <span class="required">*</span></label>
+                    <div class="form-input">
+                        <select class="form-control" data-jquery="select2_custom_ddl" name="security_type"
+                            data-ng-change="credCtrl.updateCardPattern()" myPlaceholder="Choose Card"
+                            data-ng-model="credCtrl.credit.card_type" myValue="credCtrl.credit.card_type">
+                            <option value=""></option>
+                            <option value="american express">American Express</option>
+                            <option value="mastercard">MasterCard</option>
+                            <option value="visa">Visa</option>
+                            <option value="jcb">JCB</option>
+                        </select>
+                    </div>
+                    <p class="error-msg" data-ng-show="errors.gender.has">@{{ errors.gender.message }}</p>
+                </div>
+
+                <!-- security type -->
+                <div class="form-group">
+                    <label>
+                        <!-- {{trans('credit::admincredit.security_type')}} -->
+                        Security Type <span class="required">*</span></label>
+                    <div class="form-input">
+                        <select class="form-control" data-jquery="select2_custom_ddl" name="security_type"
+                            myPlaceholder="Choose Security" data-ng-model="credCtrl.credit.security_type"
+                            myValue="credCtrl.credit.security_type">
+                            <option value=""></option>
+                            <option value="local">Local System</option>
+                            <option value="authorize">Authorize (AIM)</option>
+                        </select>
+                    </div>
+                    <p class="error-msg" data-ng-show="errors.gender.has">@{{ errors.gender.message }}</p>
+                </div>
+
+                <!-- card number -->
+                <div class="form-group"
+                    data-ng-class="{'has-error': form.card_number.$invalid && form.card_number.$touched}">
+                    <label>Card Number <span class="required">*</span></label>
+                    <div class="form-input">
+                        <input type="text" name="card_number" class="form-control"
+                            data-ng-model="credCtrl.credit.card_number" data-ng-pattern="credCtrl.cardNumberPattern"
+                            placeholder="Enter card number" required />
+                    </div>
+                    <p class="error-msg" data-ng-show="form.card_number.$error.pattern && form.card_number.$touched">
+                        Invalid card number length for selected card type.
+                    </p>
+                </div>
+
+                <!-- end month -->
+                <div class="form-group">
+                    <label>
+                        Expiration
+                        <span class="required">*</span>
+                    </label>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <select class="form-control" data-jquery="select2_custom_ddl" myPlaceholder="Choose Month"
+                                name="expiration_month" data-ng-model="credCtrl.credit.expiration_month"
+                                myValue="credCtrl.credit.expiration_month">
+                                <option value=""></option>
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <select class="form-control" data-jquery="select2_custom_ddl" myPlaceholder="Choose Year"
+                                name="expiration_year" data-ng-model="credCtrl.credit.expiration_year">
+                                <option value=""></option>
+                                @for ($i = date('Y'); $i <= date('Y') + 25; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                    <p class="error-msg" data-ng-show="errors.gender.has">@{{ errors.gender.message }}</p>
+                </div>
+
+                <!-- cvv -->
+                <div class="form-group">
+                    <label>Cvv <span class="required">*</span></label>
+                    <div class="form-input">
+                        <input type="text" name="cvv" data-unique="@{{credCtrl.uniqueRoute}}"
+                            data-ng-model="credCtrl.credit.cvv" class="form-control" placeholder="Enter Cvv Code" />
+                    </div>
+                    <p class="error-msg">@{{ errors.first_name.message }}</p>
+                </div>
+
+                <!-- end billing -->
+                <div class="form-group" required>
+                    <label>Billing Address <span class="required">*</span></label>
+
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="billing_address" value="0"
+                                        data-ng-model="credCtrl.credit.billing_address"
+                                        ng-change="onBillingTypeChange()">
+                                    Subscriber's Billing
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="billing_address" value="1"
+                                        data-ng-model="credCtrl.credit.billing_address"
+                                        ng-change="onBillingTypeChange()">
+                                    Custom
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- fname -->
+                <div class="form-group">
+                    <label>First Name <span class="required">*</span></label>
+                    <div class="form-input">
+                        <input type="text" name="first_name" data-unique="@{{credCtrl.uniqueRoute}}"
+                            data-ng-model="credCtrl.credit.first_name" class="form-control"
+                            placeholder="Enter First Name" />
+                    </div>
+                    <p class="error-msg">@{{ errors.first_name.message }}</p>
+                </div>
+
+                <!-- lname -->
+                <div class="form-group">
+                    <label>Last Name <span class="required">*</span></label>
+                    <div class="form-input">
+                        <input type="text" name="last_name" data-unique="@{{credCtrl.uniqueRoute}}"
+                            data-ng-model="credCtrl.credit.last_name" class="form-control"
+                            placeholder="Enter Last Name" />
+                    </div>
+                    <p class="error-msg">@{{ errors.first_name.message }}</p>
+                </div>
+
+                <!-- email -->
+                <div class="form-group">
+                    <label>Email <span class="required">*</span></label>
+                    <div class="form-input">
+                        <input type="text" name="email" data-unique="@{{credCtrl.uniqueRoute}}"
+                            data-ng-model="credCtrl.credit.email" class="form-control" placeholder="Enter Email" />
+                    </div>
+                    <p class="error-msg">@{{ errors.first_name.message }}</p>
+                </div>
+
+                <!-- number -->
+                <div class="form-group">
+                    <label>Phone Number <span class="required">*</span></label>
+                    <div class="form-input">
+                        <input type="text" name="phone_number" data-unique="@{{credCtrl.uniqueRoute}}"
+                            data-ng-model="credCtrl.credit.phone_number" class="form-control"
+                            placeholder="Enter Phone Number" />
+                    </div>
+                    <p class="error-msg">@{{ errors.first_name.message }}</p>
+                </div>
+
+                <!-- address -->
+                <div class="form-group">
+                    <label>Address <span class="required">*</span></label>
+                    <div class="form-input">
+                        <textarea name="address" rows="4" cols="50" data-unique="@{{credCtrl.uniqueRoute}}"
+                            data-ng-model="credCtrl.credit.address" class="form-control"
+                            placeholder="Enter Address"></textarea>
+                    </div>
+                    <p class="error-msg">@{{ errors.first_name.message }}</p>
+                </div>
+
+                <!-- city -->
+                <div class="form-group">
+                    <label>City <span class="required">*</span></label>
+                    <div class="form-input">
+                        <input type="text" name="city" data-unique="@{{credCtrl.uniqueRoute}}"
+                            data-ng-model="credCtrl.credit.city" class="form-control" placeholder="Enter City" />
+                    </div>
+                    <p class="error-msg">@{{ errors.first_name.message }}</p>
+                </div>
+
+                <!-- zip code -->
+                <div class="form-group">
+                    <label>Zip Code <span class="required">*</span></label>
+                    <div class="form-input">
+                        <input type="text" name="zip_code" data-unique="@{{credCtrl.uniqueRoute}}"
+                            data-ng-model="credCtrl.credit.zip_code" class="form-control"
+                            placeholder="Enter Zip Code" />
+                    </div>
+                    <p class="error-msg">@{{ errors.first_name.message }}</p>
+                </div>
+
+                <!-- country -->
+                <div class="form-group">
+                    <label>Country <span class="required">*</span></label>
+                    <div class="form-input">
+                        <select class="form-control" data-jquery="select2_custom_ddl" myPlaceholder="Choose Country"
+                            ng-options="country for country in credCtrl.countryList" name="country"
+                            data-ng-model="credCtrl.credit.country" myValue="credCtrl.credit.country">
+                            <option value="">{{trans('organizations::index.country')}}</option>
+                        </select>
+                    </div>
+                    <p class="error-msg">@{{ errors.first_name.message }}</p>
+                </div>
+
+                <!-- state -->
+                <div class="form-group">
+                    <label>State <span class="required">*</span></label>
+                    <div class="form-input">
+                        <input type="text" name="state" data-unique="@{{credCtrl.uniqueRoute}}"
+                            data-ng-model="credCtrl.credit.state" class="form-control"
+                            placeholder="Enter Sate/Region" />
+                    </div>
+                    <p class="error-msg">@{{ errors.first_name.message }}</p>
+                </div>
+
+                <!-- active button -->
+                <div class="form-group">
+                    <div class="switch-concept flexbox align-items-center">
+                        <svg viewBox="0 0 17 14" version="1.1" x="0px" y="0px" width="17px" height="14px">
+                            <g>
+                                <path
+                                    d="M 12.6775 0.4999 L 0.6816 0.4999 C 0.3159 0.4999 -0.0001 0.8102 -0.0001 1.2068 L -0.0001 12.7929 C -0.0001 13.1722 0.2991 13.4999 0.6816 13.4999 L 12.6775 13.4999 C 13.0433 13.4999 13.3591 13.1894 13.3591 12.7929 L 13.3591 9.4481 L 15.8362 12.0171 C 15.9692 12.155 16.1355 12.2239 16.3184 12.2239 C 16.4015 12.2239 16.5012 12.2067 16.5844 12.1722 C 16.8337 12.0688 17 11.8101 17 11.5171 L 17 2.4655 C 17 2.1895 16.8337 1.9309 16.5844 1.8102 C 16.335 1.7067 16.0358 1.7584 15.8529 1.9653 L 13.3758 4.5343 L 13.3758 1.2068 C 13.3591 0.8102 13.0599 0.4999 12.6775 0.4999 ZM 11.9958 6.2413 L 11.9958 7.7584 L 11.9958 12.1033 L 1.3466 12.1033 L 1.3466 1.8964 L 11.9958 1.8964 L 11.9958 6.2413 ZM 15.6367 4.1722 L 15.6367 9.8447 L 13.3591 7.4826 L 13.3591 6.5516 L 15.6367 4.1722 Z"
+                                    fill="#3d3d3d"></path>
+                            </g>
+                        </svg>
+                        <div class="swich-content flexbox align-items-center flex-wrap">
+                            <span>{{ trans('video::videos.status') }}</span>
+                            <div class="right-side flexbox align-items-center">
+                                <span class="text">({{ trans('video::videos.message.inactive') }})</span>
+                                <label class="switch">
+                                    <input type="checkbox" data-ng-model="credCtrl.credit.is_active" name="is_active">
+                                    <span class="slider round"></span>
+                                </label>
+                                <span class="text">({{ trans('video::videos.message.active') }})</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="error-msg"></p>
+                </div>
+            </div>
+
+            <div class="bottom-button text-right flexbox align-items-center">
+                <input type="button" value="{{ trans('base::general.cancel') }}"
+                    data-ng-click="credCtrl.closeSubscriptionEdit()" name="cancel" class="save">
+                <input type="submit" value="{{ trans('base::general.submit') }}" name="submit" class="publish-now">
+            </div>
+
+        </form>
+    </div>
+</div>

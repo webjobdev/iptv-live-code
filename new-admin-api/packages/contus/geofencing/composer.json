@@ -1,0 +1,13 @@
+{
+    "name": "contus/geofencing",
+    "description": "This package is used to manage all the countries and the regions for restricting the videos based on the selection.",
+    "license": "Contus",
+    "authors": [
+        {
+            "name": "Anil Omkar",
+            "email": "anilomkar.k@contus.in"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

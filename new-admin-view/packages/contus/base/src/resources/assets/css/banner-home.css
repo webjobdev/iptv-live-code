@@ -1,0 +1,13 @@
+.pagination_custom.flexbox.align-items-center {
+  display: none;
+}
+p#pstat-0 {
+  font-size: 12px;
+  color: green;
+  margin-bottom: 10px;
+  font-weight: bold;
+} 
+.stat-0.file-error p {
+  color: #e43737 !important;
+  font-weight: normal !important;
+}

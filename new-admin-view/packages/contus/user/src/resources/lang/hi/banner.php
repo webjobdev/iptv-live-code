@@ -1,0 +1,81 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validation Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines used to display in admin user block.
+    |
+    */
+    
+    'general_information' => 'सामान्य जानकारी',
+    'basic_information' => 'बैनर के बारे में कुछ बुनियादी जानकारी।',
+    'banner' => 'बैनर प्रबंधित करें',  
+    'image' => 'छवि',
+    'add_new_banner' => 'नया बैनर जोड़ें',
+    'uploaded_section' => 'अपलोड किया गया अनुभाग',
+    'homepage_section' => 'होमपेज अनुभाग',
+    'cms_section'=>'सीएमएस अनुभाग',
+    'banner_url'=>'बैनर लिंक',
+    'url_placeholder'=>'बैनर लिंक',
+    'select_uploaded_section' => 'अपलोड किया गया अनुभाग का चयन करें',
+    'edit_banner' => 'बैनर संपादित करें',
+    'edit_banner' => 'बैनर संपादित करें',
+    'title' => 'शीर्षक', 
+    'title_placeholder'=>'Eg. हेडर बैनर',
+    'description' => 'विवरण',
+    'seo_page_title' => 'एसईओ पेज शीर्षक',
+    'seo_page_title_placeholder' => 'एसईओ पेज शीर्षक',
+    'success' => 'बैनर सफलतापूर्वक जोड़ा गया।',
+    'updated' => 'बैनर सफलतापूर्वक अपडेट किया गया।',
+    'deleted' => 'बैनर सफलतापूर्वक हटा दिया गया।',
+    'selected_deleted' => 'चयनित बैनर सफलतापूर्वक हटा दिया गया।',
+    'status' => 'स्थिति',
+    'active' => 'सक्रिय',
+    'inactive' => 'सक्रिय में',
+    'manage_banner' => 'बैनर प्रबंधित करें',
+    'create_banner' => 'बैनर बनाएं',
+    'meta_keyword' => 'मेटा कीवर्ड',
+    'meta_keyword_placeholder' => 'मेटा कीवर्ड',
+    'meta_description' => 'मेटा विवरण',
+    'meta_description_placeholder' => 'मेटा विवरण',
+    'order'=>'क्रम',
+    'order_placeholder' => 'Eg.1',
+    'html'=>'एचटीएमएल',
+    'html_placeholder' => 'छवि के ऊपर प्रदर्शित करने के लिए पाठ',
+    'delete_banner' => 'बैनर हटाएं',
+    'top' =>'चोटी',
+    'bottom' => 'तल',
+    'header' => 'हैडर',
+    'footer' => 'फ़ुटबाल',
+    'left' => 'बाएं',
+    'right' => 'सही',
+    'date' => 'दिनांक',
+    'last_modified' => 'अंतिम बार संशोधित',
+    'no_record_found' => 'कोई रिकॉर्ड नहीं मिला',
+    'not_found' => 'कोई बैनर नहीं मिला',
+    'action' => 'कार्य',
+    'select_banner_section' => 'बैनर अनुभाग का चयन करें',
+    'banner_section' => 'बैनर अनुभाग',
+    'cms_page' => 'सीएमएस पेज',
+    'select_cms_page' => 'सीएमएस पेज का चयन करें',
+    'expired_at' => 'बैनर समाप्ति तिथि',
+    'scheduled_at' => 'बैनर अनुसूचित दिनांक',
+    'select_file' => 'फ़ाइल का चयन करें',
+    'select_image' => 'छवि चुने',
+    'change' => 'परिवर्तन',
+    'remove' => 'हटाना',
+    'date_placeholder' => 'Eg.2016-03-22',
+    'select_banner_status' => 'बैनर स्थिति का चयन करें',
+    'manage_active' => 'सक्रिय',
+    'manage_inactive' => 'सक्रिय में',
+    'manage_all' => 'सब',
+    'created_at' => 'को निर्मित',
+    'enter_title' => 'बैनर शीर्षक दर्ज करें',
+    'select_banner_section' => 'बैनर अनुभाग का चयन करें',
+    'serial_no' => 'क्र.सं.',
+
+];

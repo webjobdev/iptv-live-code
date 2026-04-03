@@ -1,0 +1,465 @@
+<?php
+
+/**
+ * Admin User Repository
+ *
+ * To manage the functionalities related to the Admin User module from Admin User Controller
+ *
+ * @name AdminUserRepository
+ * @vendor Contus
+ * @package User
+ * @version 1.0
+ * @author Contus<developers@contus.in>
+ * @copyright Copyright (C) 2016 Contus. All rights reserved.
+ * @license GNU General Public License http://www.gnu.org/copyleft/gpl.html
+ */
+
+namespace Contus\User\Repositories;
+
+use Contus\User\Contracts\IAdminUserRepository;
+use Contus\User\Models\User;
+use Contus\Video\Repositories\AWSUploadRepository;
+use Contus\Base\Repository as BaseRepository;
+use Contus\Base\Repositories\UploadRepository;
+use Contus\User\Models\UserGroup;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Contus\Base\Helpers\StringLiterals;
+use Contus\Cms\Repositories\EmailTemplatesRepository;
+use Contus\Notification\Repositories\NotificationRepository;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
+class AdminUserRepository extends BaseRepository implements IAdminUserRepository
+{
+    /**
+     * Class property to hold the key which hold the group name requested
+     *
+     * @var string
+     */
+    protected $requestedUserEmail = 'q';
+    /**
+     * Class property to hold the upload repository object
+     *
+     * @var Contus\Base\Repositories\UploadRepository
+     */
+    protected $uploadRepository = null;
+    /**
+     * Class property to hold the key which hold the admin group object
+     *
+     * @var object
+     */
+    protected $_adminGroup;
+    /**
+     * Class property to hold the key which hold the user object
+     *
+     * @var object
+     */
+    protected $_user;
+    /**
+     * Class property to hold the user group object
+     *
+     * @var object
+     */
+    protected $_userGroup;
+    /**
+     * Class property to hold the email templates repository
+     *
+     * @var Contus\Cms\Repositories\EmailTemplatesRepository
+     */
+    protected $email;
+    /**
+     * Class property to hold the notification repository
+     *
+     * @var Contus\Notification\Repositories\NotificationRepository
+     */
+    protected $notification;
+    /**
+     * Class property to hold the AWS repository
+     *
+     * @var Contus\Video\Repositories\AWSUploadRepository
+     */
+    protected $awsRepository;
+    /**
+     * Class property to hold the site name
+     *
+     * @var string
+     */
+    protected $siteName;
+
+    /**
+     * Construct method
+     *
+     * @vendor Contus
+     *
+     * @package User
+     * @param Contus\User\Models\UserGroup $userGroup
+     * @param Contus\User\Models\User $user
+     * @param Contus\Base\Repositories\UploadRepository $uploadRepository
+     */
+    public function __construct(UserGroup $userGroup, User $user, EmailTemplatesRepository $emailTemplates, UploadRepository $uploadRepository, NotificationRepository $notification, AWSUploadRepository $awsRepository)
+    {
+        parent::__construct();
+        $this->_userGroup = $userGroup;
+        $this->_user = $user;
+        $this->email = $emailTemplates;
+        $this->uploadRepository = $uploadRepository;
+        $this->notification = $notification;
+        $this->setRules([
+            'name' => StringLiterals::REQUIRED,
+            'gender' => StringLiterals::REQUIRED,
+            StringLiterals::EMAIL => 'required|email|unique:users',
+            // 'phone' => 'nullable|numeric', 
+            'phone' => 'required|max:15|min:7|unique:users',
+            'user_group_id' => 'required'
+        ]);
+        $this->setMessages('phone.required', "Mobile number is required");
+        $this->setMessages('phone.unique', "The mobile number has already been taken.");
+        $this->awsRepository = $awsRepository;
+        $this->siteName = config()->get('settings.general-settings.site-settings.site_name');
+    }
+
+    /**
+     * Store a newly created admin user.
+     *
+     * @param $id input
+     * values
+     *
+     * @vendor Contus
+     * @package User
+     * @return boolean
+     */
+
+
+    // public function addOrUpdateUsers($id = null) {
+    //     $password = $this->randomCharGen(8);
+    //     $this->uploadRepository->defineRepositoryFileRule($this);
+    //     if (app()->make('request')->has(StringLiterals::PROFILE)) {
+    //         $this->uploadRepository->setModelIdentifier(UploadRepository::MODEL_IDENTIFIER_ADMIN_USER_PROFILE)->setRequestParamKey(StringLiterals::PROFILE)->setConfig();
+    //     }
+    //     if (!empty($id)) {
+    //         $adminUser = $this->_user->find($id);
+    //         $this->setRule(StringLiterals::EMAIL, 'required|email|unique:users,email,' . $adminUser->id);
+    //         $this->setRule('phone', 'required|unique:users,phone,' . $adminUser->id);
+    //     } else {
+    //         $adminUser = new User();
+    //         $adminUser->password = Hash::make($password);
+    //         $adminUser->access_token = $this->randomCharGen(30);
+    //         $adminUser->parent_id = Auth::user()->id;
+    //     }
+    //     $this->validate(app()->make('request'), $this->getRules());
+    //     // $this->_validate();
+
+    //     if (!empty($id) && !empty($this->request->profile_image) && $this->request->is_profile_image_updated == 1) {
+    //         $this->deleteProfileImage($id);
+    //         $fileName =  $adminUser->getImageBaseName($this->request->profile_image);
+    //         $folderName = config("contus.base.image.admin_user_profile_image.s3_location") . $id . '/';
+    //         $localStoragePath = public_path() . DIRECTORY_SEPARATOR . config("contus.base.image.admin_user_profile_image.temporary_image_storage_path");
+    //         $s3BucketImgFilename = $this->uploadTos3Bucket($fileName, $folderName, $localStoragePath);
+    //         $s3BucketImgURL = $folderName . $s3BucketImgFilename;
+    //         $adminUser->profile_image =  $s3BucketImgURL;
+    //     }
+    //     $adminUser->fill(app()->make('request')->except('_token'));
+    //     if ($adminUser->save()) {
+    //         if (empty($id)) {
+    //             $this->email = $this->email->fetchEmailTemplate('new-admin-user-account-creation');
+    //             $this->email->subject = str_replace(['##SITE_NAME##'], [$this->siteName], $this->email->subject);
+    //             $this->email->content = str_replace(['##GREETING_NAME##', '##SITE_NAME##', '##URL##', '##EMAIL##', '##PASSWORD##'], [$adminUser->name, $this->siteName, url('/'), $adminUser->email,  $password], $this->email->content);
+    //             $this->notification->email($adminUser, $this->email->subject, $this->email->content);
+    //         }
+    //         return true;
+    //     }
+    // }
+
+
+
+    public function addOrUpdateUsers($id = null)
+    {
+        $password = $this->randomCharGen(8);
+        $this->uploadRepository->defineRepositoryFileRule($this);
+        if (app()->make('request')->has(StringLiterals::PROFILE)) {
+            $this->uploadRepository->setModelIdentifier(UploadRepository::MODEL_IDENTIFIER_ADMIN_USER_PROFILE)->setRequestParamKey(StringLiterals::PROFILE)->setConfig();
+        }
+        if (!empty($id)) {
+            $adminUser = $this->_user->find($id);
+            $this->setRule(StringLiterals::EMAIL, 'required|email|unique:users,email,' . $adminUser->id);
+            $this->setRule('phone', 'required|unique:users,phone,' . $adminUser->id);
+        } else {
+            $adminUser = new User();
+            $adminUser->password = Hash::make($password);
+            $adminUser->access_token = $this->randomCharGen(30);
+            $adminUser->parent_id = Auth::user()->id;
+        }
+        $this->validate(app()->make('request'), $this->getRules());
+        // $this->_validate();
+
+        if (!empty($id) && !empty($this->request->profile_image) && $this->request->is_profile_image_updated == 1) {
+            $this->deleteProfileImage($id);
+            $fileName = $adminUser->getImageBaseName($this->request->profile_image);
+            $localStoragePath = config("app.url") . config("contus.base.image.admin_user_profile_image.temporary_image_storage_path");
+            $localImagePath = $localStoragePath . DIRECTORY_SEPARATOR . $fileName;
+            $adminUser->profile_image = $localImagePath;
+        }
+
+        $adminUser->fill(app()->make('request')->except('_token'));
+        if ($adminUser->save()) {
+            if (empty($id)) {
+                $this->email = $this->email->fetchEmailTemplate('new-admin-user-account-creation');
+                $this->email->subject = str_replace(['##SITE_NAME##'], [$this->siteName], $this->email->subject);
+                $this->email->content = str_replace(['##GREETING_NAME##', '##SITE_NAME##', '##URL##', '##EMAIL##', '##PASSWORD##'], [$adminUser->name, $this->siteName, url('/'), $adminUser->email, $password], $this->email->content);
+                $this->notification->email($adminUser, $this->email->subject, $this->email->content);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Fetch users to display in admin block.
+     *
+     * @vendor Contus
+     *
+     * @package User
+     * @return response
+     */
+    public function getUsers($status)
+    {
+        $users = $this->_user;
+        $users->filter($status);
+        return $users->paginate(10);
+    }
+
+    /**
+     * Fetch user to edit.
+     *
+     * @vendor Contus
+     *
+     * @package User
+     * @return response
+     */
+    public function getUser($id)
+    {
+        return $this->_user->find($id);
+    }
+
+    /**
+     * List groups
+     *
+     * @vendor Contus
+     *
+     * @package User
+     * @return response
+     */
+    public function getGroupsList()
+    {
+        return $this->_adminGroup->pluck('name', 'id');
+    }
+
+    /**
+     * Method used to update password.
+     * Set validation rule for change password.
+     *
+     * Check the old password with logged in user password and update the password.
+     *
+     * @vendor Contus
+     *
+     * @package User
+     * @return boolean
+     */
+    public function changePassword()
+    {
+        $adminUser = $this->_user->find(Auth::user()->id);
+        if (Hash::check($this->request->old_password, $adminUser->password)) {
+            $adminUser->password = Hash::make($this->request->password);
+            $adminUser->save();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Method used to update profile information
+     *
+     * @vendor Contus
+     *
+     * @package User
+     * @param $id input
+     * values
+     *
+     * @return boolean
+     */
+    public function updateProfile($id = null)
+    {
+        $this->uploadRepository->defineRepositoryFileRule($this);
+        if (!empty($id)) {
+            $adminUser = $this->_user->find($id);
+            $this->setRule(StringLiterals::EMAIL, 'required|email|unique:admin_users,email,' . $adminUser->id);
+            $this->removeRule('user_groups');
+        }
+        $this->validate($this->request, $this->getRules());
+        $adminUser->fill($this->request->except('_token'));
+        if ($adminUser->save() && $this->request->has('uploadedImage')) {
+            $this->uploadRepository->handleUpload($adminUser);
+        }
+        return true;
+    }
+
+    /**
+     * Check the user email provied is unique user email.
+     * check only if the request has the expected param
+     *
+     * @vendor Contus
+     *
+     * @package User
+     * @param int $id
+     * @return boolean
+     */
+    public function isUniqueUserEmail($id = null)
+    {
+        if ($this->request->has($this->requestedUserEmail)) {
+            $adminUserQuery = $this->_user->where(StringLiterals::EMAIL, $this->request->get($this->requestedUserEmail));
+            if ($id) {
+                $adminUserQuery->where('id', '!=', $id);
+            }
+
+            return $adminUserQuery->count() == 0;
+        }
+        return false;
+    }
+
+    /**
+     * Prepare the grid
+     * set the grid model and relation model to be loaded
+     *
+     * @vendor Contus
+     *
+     * @package User
+     * @return \Contus\Base\Repository
+     */
+    public function prepareGrid()
+    {
+        $this->setGridModel($this->_user)->setEagerLoadingModels(['group']);
+        // dd($this->_user->get());
+        return $this;
+    }
+
+    public function fetchRecord()
+    {
+        $data = User::with(['group'])->paginate(15);
+        return $data;
+    }
+
+    /**
+     * update grid records collection query
+     *
+     * @param mixed $builder
+     * @return mixed
+     */
+    protected function updateGridQuery($builder)
+    {
+        /*
+         * updated the all user record only an superadmin user.
+         */
+
+        return $builder->where('user_group_id', '!=', 1);
+    }
+
+    /**
+     * Function to apply filter for search of users grid
+     *
+     * @vendor Contus
+     *
+     * @package User
+     * @param mixed $builderUsers
+     * @return \Illuminate\Database\Eloquent\Builder $builderUsers The builder object of users grid.
+     */
+    protected function searchFilter($builderUsers)
+    {
+        $searchRecordUsers = $this->request->has(StringLiterals::SEARCHRECORD) && is_array($this->request->input(StringLiterals::SEARCHRECORD)) ? $this->request->input(StringLiterals::SEARCHRECORD) : [];
+        /**
+         * Loop the search fields of users grid and use them to filter search results.
+         */
+        foreach ($searchRecordUsers as $key => $value) {
+            if ($value != 'all') {
+                $builderUsers = $builderUsers->where($key, 'like', "%$value%");
+            }
+        }
+
+        return $builderUsers;
+    }
+
+    /**
+     * Get headings for grid
+     *
+     * @vendor Contus
+     *
+     * @package User
+     * @return array
+     */
+    public function getGridHeadings()
+    {
+        return [
+            StringLiterals::GRIDHEADING => [
+                ['name' => trans('user::user.username'), StringLiterals::VALUE => 'name', 'sort' => true],
+                ['name' => trans('user::user.email'), StringLiterals::VALUE => StringLiterals::EMAIL, 'sort' => true],
+                ['name' => trans('user::user.user_group'), StringLiterals::VALUE => '', 'sort' => false],
+                ['name' => trans('user::user.status'), StringLiterals::VALUE => 'is_active', 'sort' => false],
+                ['name' => trans('user::user.action'), StringLiterals::VALUE => '', 'sort' => false]
+            ]
+        ];
+    }
+
+    /**
+     * Repository function to delete profile image of a user.
+     *
+     * @param integer $id
+     * The id of the user.
+     * @return boolean True if the profile image is deleted and false if not.
+     */
+    public function deleteProfileImage($id)
+    {
+        /**
+         * Check if user id exists.
+         */
+        if (!empty($id)) {
+            $user = $this->_user->findorfail($id);
+            /**
+             * Delete the profile image using the profile image path field from the database.
+             */
+            if (isset($user->profile_image) && $user->profile_image !== '') {
+                $URL = $user->getImageBaseName($user->profile_image);
+                /** call to method to delete image in S3 bucket */
+                // $imageURL = config("contus.base.image.admin_user_profile_image.s3_location") . $id . '/' . $URL;
+                // $this->uploadRepository->deleteFileFromS3Bucket($imageURL);
+                /** Process to delete image from local storage path */
+                $localFilePath = public_path() . DIRECTORY_SEPARATOR . config("contus.base.image.admin_user_profile_image.temporary_image_storage_path");
+                $this->uploadRepository->deleteImageFileInLocalPath($localFilePath, $URL);
+                /**
+                 * Empty the profile_image and profile_image_path field in the database.
+                 */
+
+                $user->profile_image = '';
+                $user->profile_image_path = '';
+                $user->save();
+                $deleteStatus = true;
+            } else {
+                $deleteStatus = false;
+            }
+            return $deleteStatus;
+        } else {
+            return false;
+        }
+    }
+
+    public function getToken($token)
+    {
+        try {
+            return JWTAuth::toUser($token);
+        } catch (JWTException $e) {
+            return null;
+        }
+    }
+}

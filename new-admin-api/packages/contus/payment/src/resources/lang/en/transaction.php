@@ -1,0 +1,43 @@
+<?php
+return [ 
+		
+		/*
+		 * |--------------------------------------------------------------------------
+		 * | Validation Language Lines
+		 * |--------------------------------------------------------------------------
+		 * |
+		 * | The following language lines used to display in transaction block.
+		 * |
+		 */
+		
+		'showallError' => 'Unable to find all transaction list, Please try again',
+		'showError' => 'Unable to find transaction, Please try again',
+		'add' => 'Successfully added.',
+		'addError' => 'Unable to add, Please try again.',
+		'transactions' => 'Transactions',
+		'transactions_details' => 'Transaction Details',
+		'payments' => 'Payments',
+		'serial_no' => 'S.No',
+		'transaction_id' => 'Transaction Id',
+        'customer_name'=>'Customer Name',
+		'customer_name' => 'Customer Name',
+		'plan_name' => 'Plan Name',
+		'video_name' => 'Video Name',
+		'payment_method' => 'Payment Method',
+		'status' => 'Status',
+		'transaction_message' => 'Message',
+		'message' => 'Transaction Message',
+		'created_at' => 'Transaction On',
+        'transactionOn' => 'Created_at',
+		'enter_customer' => 'Enter Customer Name',
+		'enter_transaction_id' => 'Enter Transaction ID',
+		'active' => 'Active',
+		'inactive' => 'Inactive',
+		'view_transactions' => 'View Transaction',
+		'payment_name' => 'Payment Method',
+        'action'=>'Actions',
+		'amount' => 'Amount',
+		'paid_amount' => 'Paid Amount',
+		'applied_coupon' => 'Applied Coupon',
+		'select_payment_method' => 'Select Payment Method',
+];

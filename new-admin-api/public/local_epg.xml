@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tv generator-info-name="IPTV Middleware Tester">
+
+  <!-- Channels -->
+  <channel id="1"><display-name>StarPlus</display-name></channel>
+  <channel id="2"><display-name>UTV Action</display-name></channel>
+  <channel id="3"><display-name>Sony Sab</display-name></channel>
+  <channel id="4"><display-name>ZEETV</display-name></channel>
+  <channel id="5"><display-name>Cartoon Network</display-name></channel>
+  <channel id="6"><display-name>SONY YAY</display-name></channel>
+  <channel id="7"><display-name>Sony Entertainment Television</display-name></channel>
+  <channel id="9"><display-name>Iris Day</display-name></channel>
+
+  <!-- ================= STAR PLUS ================= -->
+  <programme start="20260121064500 +0000" stop="20260121090000 +0000" channel="1">
+    <title lang="en">Morning Drama</title>
+    <desc lang="en">Family drama to start the day.</desc>
+    <category lang="en">Drama</category>
+  </programme>
+
+  <programme start="20260121090000 +0000" stop="20260121113000 +0000" channel="1">
+    <title lang="en">Daily Soap</title>
+    <desc lang="en">Popular Hindi serial.</desc>
+    <category lang="en">Drama</category>
+  </programme>
+
+  <programme start="20260121113000 +0000" stop="20260121140000 +0000" channel="1">
+    <title lang="en">Afternoon Special</title>
+    <desc lang="en">Special episodes.</desc>
+    <category lang="en">Entertainment</category>
+  </programme>
+
+  <programme start="20260121140000 +0000" stop="20260121170000 +0000" channel="1">
+    <title lang="en">Evening Drama</title>
+    <desc lang="en">Emotional storyline.</desc>
+    <category lang="en">Drama</category>
+  </programme>
+
+  <programme start="20260121170000 +0000" stop="20260121240000 +0000" channel="1">
+    <title lang="en">Prime Time Special</title>
+    <desc lang="en">Prime-time entertainment.</desc>
+    <category lang="en">Entertainment</category>
+  </programme>
+
+  <!-- ================= UTV ACTION ================= -->
+  <programme start="20260121064500 +0000" stop="20260121094500 +0000" channel="2">
+    <title lang="en">Morning Action</title>
+    <desc lang="en">High-octane action movie.</desc>
+    <category lang="en">Movie</category>
+  </programme>
+
+  <programme start="20260121094500 +0000" stop="20260121124500 +0000" channel="2">
+    <title lang="en">Action Blockbuster</title>
+    <desc lang="en">Non-stop action thriller.</desc>
+    <category lang="en">Movie</category>
+  </programme>
+
+  <programme start="20260121124500 +0000" stop="20260121154500 +0000" channel="2">
+    <title lang="en">Spy Thriller</title>
+    <desc lang="en">Espionage action drama.</desc>
+    <category lang="en">Movie</category>
+  </programme>
+
+  <programme start="20260121154500 +0000" stop="20260121184500 +0000" channel="2">
+    <title lang="en">War Zone</title>
+    <desc lang="en">Battlefield action.</desc>
+    <category lang="en">Movie</category>
+  </programme>
+
+  <programme start="20260121184500 +0000" stop="20260121240000 +0000" channel="2">
+    <title lang="en">Late Night Action</title>
+    <desc lang="en">Action till midnight.</desc>
+    <category lang="en">Movie</category>
+  </programme>
+
+  <!-- ================= SONY SAB ================= -->
+  <programme start="20260121064500 +0000" stop="20260121090000 +0000" channel="3">
+    <title lang="en">Comedy Morning</title>
+    <desc lang="en">Light comedy shows.</desc>
+    <category lang="en">Comedy</category>
+  </programme>
+
+  <programme start="20260121090000 +0000" stop="20260121113000 +0000" channel="3">
+    <title lang="en">Family Fun</title>
+    <desc lang="en">Comedy for all ages.</desc>
+    <category lang="en">Comedy</category>
+  </programme>
+
+  <programme start="20260121113000 +0000" stop="20260121140000 +0000" channel="3">
+    <title lang="en">Laugh Riot</title>
+    <desc lang="en">Non-stop laughter.</desc>
+    <category lang="en">Comedy</category>
+  </programme>
+
+  <programme start="20260121140000 +0000" stop="20260121170000 +0000" channel="3">
+    <title lang="en">Sitcom Hour</title>
+    <desc lang="en">Popular sitcoms.</desc>
+    <category lang="en">Comedy</category>
+  </programme>
+
+  <programme start="20260121170000 +0000" stop="20260121240000 +0000" channel="3">
+    <title lang="en">Comedy Night</title>
+    <desc lang="en">Late night comedy.</desc>
+    <category lang="en">Comedy</category>
+  </programme>
+
+  <!-- ================= ZEETV ================= -->
+  <programme start="20260121064500 +0000" stop="20260121100000 +0000" channel="4">
+    <title lang="en">Morning Soap</title>
+    <desc lang="en">Daily Hindi serial.</desc>
+    <category lang="en">Drama</category>
+  </programme>
+
+  <programme start="20260121100000 +0000" stop="20260121130000 +0000" channel="4">
+    <title lang="en">Afternoon Drama</title>
+    <desc lang="en">Relationship stories.</desc>
+    <category lang="en">Drama</category>
+  </programme>
+
+  <programme start="20260121130000 +0000" stop="20260121160000 +0000" channel="4">
+    <title lang="en">Entertainment Hour</title>
+    <desc lang="en">Variety shows.</desc>
+    <category lang="en">Entertainment</category>
+  </programme>
+
+  <programme start="20260121160000 +0000" stop="20260121190000 +0000" channel="4">
+    <title lang="en">Prime Soap</title>
+    <desc lang="en">Prime-time serial.</desc>
+    <category lang="en">Drama</category>
+  </programme>
+
+  <programme start="20260121190000 +0000" stop="20260121240000 +0000" channel="4">
+    <title lang="en">Night Special</title>
+    <desc lang="en">Late night entertainment.</desc>
+    <category lang="en">Entertainment</category>
+  </programme>
+
+    <!-- ================= CARTOON NETWORK ================= -->
+  <programme start="20260121064500 +0000" stop="20260121091500 +0000" channel="5">
+    <title lang="en">Morning Cartoons</title>
+    <desc lang="en">Fun cartoons to start the day.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+
+  <programme start="20260121091500 +0000" stop="20260121114500 +0000" channel="5">
+    <title lang="en">Toon Time</title>
+    <desc lang="en">Popular animated shows.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+
+  <programme start="20260121114500 +0000" stop="20260121141500 +0000" channel="5">
+    <title lang="en">Kids Movie</title>
+    <desc lang="en">Animated adventure movie.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+
+  <programme start="20260121141500 +0000" stop="20260121164500 +0000" channel="5">
+    <title lang="en">Cartoon Fun</title>
+    <desc lang="en">Non-stop animation.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+
+  <programme start="20260121164500 +0000" stop="20260121240000 +0000" channel="5">
+    <title lang="en">Evening Cartoons</title>
+    <desc lang="en">Kids prime-time shows.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+
+  <!-- ================= SONY YAY ================= -->
+  <programme start="20260121064500 +0000" stop="20260121090000 +0000" channel="6">
+    <title lang="en">Kids Fun Hour</title>
+    <desc lang="en">Cartoon entertainment.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+
+  <programme start="20260121090000 +0000" stop="20260121113000 +0000" channel="6">
+    <title lang="en">Animation Zone</title>
+    <desc lang="en">Popular animated series.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+
+  <programme start="20260121113000 +0000" stop="20260121140000 +0000" channel="6">
+    <title lang="en">Super Kids</title>
+    <desc lang="en">Action-packed cartoons.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+
+  <programme start="20260121140000 +0000" stop="20260121170000 +0000" channel="6">
+    <title lang="en">Fun Factory</title>
+    <desc lang="en">Fun and learning.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+
+  <programme start="20260121170000 +0000" stop="20260121240000 +0000" channel="6">
+    <title lang="en">Night Cartoons</title>
+    <desc lang="en">Cartoons till midnight.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+
+  <!-- ================= SONY ENTERTAINMENT ================= -->
+  <programme start="20260121064500 +0000" stop="20260121094500 +0000" channel="7">
+    <title lang="en">Morning Show</title>
+    <desc lang="en">Entertainment to start the day.</desc>
+    <category lang="en">Entertainment</category>
+  </programme>
+
+  <programme start="20260121094500 +0000" stop="20260121124500 +0000" channel="7">
+    <title lang="en">Daily Drama</title>
+    <desc lang="en">Popular Hindi serial.</desc>
+    <category lang="en">Drama</category>
+  </programme>
+
+  <programme start="20260121124500 +0000" stop="20260121154500 +0000" channel="7">
+    <title lang="en">Reality Hour</title>
+    <desc lang="en">Reality TV entertainment.</desc>
+    <category lang="en">Reality</category>
+  </programme>
+
+  <programme start="20260121154500 +0000" stop="20260121184500 +0000" channel="7">
+    <title lang="en">Prime Time Movie</title>
+    <desc lang="en">Blockbuster movie.</desc>
+    <category lang="en">Movie</category>
+  </programme>
+
+  <programme start="20260121184500 +0000" stop="20260121240000 +0000" channel="7">
+    <title lang="en">Late Night Drama</title>
+    <desc lang="en">Drama till midnight.</desc>
+    <category lang="en">Drama</category>
+  </programme>
+
+  <!-- ================= IRIS DAY ================= -->
+  <programme start="20260121064500 +0000" stop="20260121091500 +0000" channel="9">
+    <title lang="en">Morning Lifestyle</title>
+    <desc lang="en">Wellness and health.</desc>
+    <category lang="en">Lifestyle</category>
+  </programme>
+
+  <programme start="20260121091500 +0000" stop="20260121114500 +0000" channel="9">
+    <title lang="en">Yoga Hour</title>
+    <desc lang="en">Mind and body balance.</desc>
+    <category lang="en">Lifestyle</category>
+  </programme>
+
+  <programme start="20260121114500 +0000" stop="20260121141500 +0000" channel="9">
+    <title lang="en">Healthy Living</title>
+    <desc lang="en">Daily health tips.</desc>
+    <category lang="en">Lifestyle</category>
+  </programme>
+
+  <programme start="20260121141500 +0000" stop="20260121164500 +0000" channel="9">
+    <title lang="en">Food & Travel</title>
+    <desc lang="en">Lifestyle exploration.</desc>
+    <category lang="en">Lifestyle</category>
+  </programme>
+
+  <programme start="20260121164500 +0000" stop="20260121240000 +0000" channel="9">
+    <title lang="en">Night Wellness</title>
+    <desc lang="en">Relaxing lifestyle content.</desc>
+    <category lang="en">Lifestyle</category>
+  </programme>
+
+  <programme start="20260121240000 +0000" stop="20260122240000 +0000" channel="9">
+    <title lang="en">The Kapil Sharma Show</title>
+    <desc lang="en">Entertainment talk show.</desc>
+    <category lang="en">Entertainment</category>
+  </programme>
+</tv>

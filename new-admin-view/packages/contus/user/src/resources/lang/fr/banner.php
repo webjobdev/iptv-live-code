@@ -1,0 +1,81 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validation Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines used to display in admin user block.
+    |
+    */
+    
+    'general_information' => 'Informations générales',
+    'basic_information' => 'Quelques informations de base sur la bannière.',
+    'banner' => 'Gérer les bannières',  
+    'image' => 'Image',
+    'add_new_banner' => 'Ajouter une nouvelle bannière',
+    'uploaded_section' => 'Section téléchargée',
+    'homepage_section' => "Section de la page d'accueil",
+    'cms_section'=>'Section CMS',
+    'banner_url'=>'Lien de bannière',
+    'url_placeholder'=>'Lien de bannière',
+    'select_uploaded_section' => 'Sélectionnez la section téléchargée',
+    'edit_banner' => 'Modifier la bannière',
+    'edit_banner' => 'Modifier la bannière',
+    'title' => 'Titre', 
+    'title_placeholder'=>'Bannière Eg.Header',
+    'description' => 'La description',
+    'seo_page_title' => 'Titre de la page de référencement',
+    'seo_page_title_placeholder' => 'Titre de la page de référencement',
+    'success' => 'Bannière ajoutée avec succès.',
+    'updated' => 'Bannière mise à jour avec succès.',
+    'deleted' => 'Bannière supprimée avec succès.',
+    'selected_deleted' => 'La bannière sélectionnée a été supprimée avec succès.',
+    'status' => 'Statut',
+    'active' => 'actif',
+    'inactive' => 'Inactif',
+    'manage_banner' => 'Gérer les bannières',
+    'create_banner' => 'Créer une bannière',
+    'meta_keyword' => 'Meta Mot-clé',
+    'meta_keyword_placeholder' => 'Meta Mot-clé',
+    'meta_description' => 'Meta Description',
+    'meta_description_placeholder' => 'Meta Description',
+    'order'=>'Ordre',
+    'order_placeholder' => 'Eg.1',
+    'html'=>'Html',
+    'html_placeholder' => "Texte à afficher au-dessus de l'image",
+    'delete_banner' => 'Supprimer la bannière',
+    'top' =>'Haut',
+    'bottom' => 'Bas',
+    'header' => 'Entête',
+    'footer' => 'Bas de page',
+    'left' => 'La gauche',
+    'right' => 'Droite',
+    'date' => 'Rendez-vous amoureux',
+    'last_modified' => 'Dernière modification',
+    'no_record_found' => 'Aucun Enregistrement Trouvé',
+    'not_found' => "Aucune bannière n'a été trouvée",
+    'action' => 'action',
+    'select_banner_section' => 'Sélectionnez la section de la bannière',
+    'banner_section' => 'Section de la bannière',
+    'cms_page' => 'Page CMS',
+    'select_cms_page' => 'Sélectionnez la page CMS',
+    'expired_at' => "Date d'expiration de la bannière",
+    'scheduled_at' => 'Bannière Date prévue',
+    'select_file' => 'Choisir le dossier',
+    'select_image' => 'Sélectionner une image',
+    'change' => 'Changement',
+    'remove' => 'Retirer',
+    'date_placeholder' => 'Par exemple. 2016-03-22',
+    'select_banner_status' => 'Sélectionnez le statut de la bannière',
+    'manage_active' => 'actif',
+    'manage_inactive' => 'Inactif',
+    'manage_all' => 'Tout',
+    'created_at' => 'Créé sur',
+    'enter_title' => 'Entrez le titre de la bannière',
+    'select_banner_section' => 'Sélectionnez la section de la bannière',
+    'serial_no' => 'S.No.',
+
+];

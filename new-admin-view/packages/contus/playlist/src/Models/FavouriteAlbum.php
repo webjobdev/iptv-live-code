@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * Favourite Album Model.
+ *
+ * @name FavouriteAlbum
+ * @vendor Contus
+ * @package Audio
+ * @version 1.0
+ * @author Contus<developers@contus.in>
+ * @copyright Copyright (C) 2018 Contus. All rights reserved.
+ * @license GNU General Public License http://www.gnu.org/copyleft/gpl.html
+ */
+namespace Contus\Playlist\Models;
+
+use Contus\Base\MongoModel;
+use Contus\Base\Model;
+use Contus\Playlist\Models\Albums;
+
+class FavouriteAlbum extends MongoModel{
+    protected $collection = 'favourite_albums';
+    protected $connection = 'mongodb';
+    public $timestamps = false;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'album_id', 'customer_id', 'created_at', 'updated_at'
+    ];
+}

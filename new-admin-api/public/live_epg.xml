@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tv generator-info-name="IPTV Middleware Tester">
+
+  <!-- ================= CHANNELS ================= -->
+  <channel id="1"><display-name>A&amp;E</display-name></channel>
+  <channel id="2"><display-name>Comedy Central</display-name></channel>
+  <channel id="3"><display-name>Paramount Network</display-name></channel>
+  <channel id="4"><display-name>BBC News</display-name></channel>
+  <channel id="5"><display-name>CNN</display-name></channel>
+  <channel id="6"><display-name>History</display-name></channel>
+  <channel id="7"><display-name>National Geographic Wild</display-name></channel>
+  <channel id="8"><display-name>National Geographic</display-name></channel>
+  <channel id="9"><display-name>Motor Trend</display-name></channel>
+  <channel id="10"><display-name>NBA TV</display-name></channel>
+  <channel id="11"><display-name>Cartoon Network</display-name></channel>
+  <channel id="12"><display-name>Disney XD</display-name></channel>
+  <channel id="13"><display-name>Sony Movies</display-name></channel>
+
+  <!-- ================= A&E ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="1">
+    <title lang="en">Reality Stories</title>
+    <desc lang="en">Real-life crime and investigations.</desc>
+    <category lang="en">Entertainment</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="1">
+    <title lang="en">True Crime</title>
+    <desc lang="en">Shocking crime documentaries.</desc>
+    <category lang="en">Documentary</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="1">
+    <title lang="en">Night Investigations</title>
+    <desc lang="en">Crime stories after dark.</desc>
+    <category lang="en">Crime</category>
+  </programme>
+
+  <!-- ================= COMEDY CENTRAL ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="2">
+    <title lang="en">Stand-Up Morning</title>
+    <desc lang="en">Top stand-up comedy.</desc>
+    <category lang="en">Comedy</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="2">
+    <title lang="en">Sitcom Marathon</title>
+    <desc lang="en">Classic sitcom episodes.</desc>
+    <category lang="en">Comedy</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="2">
+    <title lang="en">Late Night Laughs</title>
+    <desc lang="en">Comedy specials.</desc>
+    <category lang="en">Comedy</category>
+  </programme>
+
+  <!-- ================= PARAMOUNT NETWORK ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="3">
+    <title lang="en">Drama Classics</title>
+    <desc lang="en">Classic drama shows.</desc>
+    <category lang="en">Drama</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="3">
+    <title lang="en">Series Marathon</title>
+    <desc lang="en">Top-rated series.</desc>
+    <category lang="en">Drama</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="3">
+    <title lang="en">Prime Drama</title>
+    <desc lang="en">Evening drama block.</desc>
+    <category lang="en">Drama</category>
+  </programme>
+
+  <!-- ================= BBC NEWS ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="4">
+    <title lang="en">World News</title>
+    <desc lang="en">Global headlines.</desc>
+    <category lang="en">News</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="4">
+    <title lang="en">Newsroom Live</title>
+    <desc lang="en">Live reporting.</desc>
+    <category lang="en">News</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="4">
+    <title lang="en">Late News</title>
+    <desc lang="en">Daily wrap-up.</desc>
+    <category lang="en">News</category>
+  </programme>
+
+  <!-- ================= CNN ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="5">
+    <title lang="en">Breaking News</title>
+    <desc lang="en">Top global stories.</desc>
+    <category lang="en">News</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="5">
+    <title lang="en">Inside Politics</title>
+    <desc lang="en">Political analysis.</desc>
+    <category lang="en">News</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="5">
+    <title lang="en">Nightline</title>
+    <desc lang="en">Late night news.</desc>
+    <category lang="en">News</category>
+  </programme>
+
+  <!-- ================= HISTORY ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="6">
+    <title lang="en">Ancient Civilizations</title>
+    <desc lang="en">Historic empires.</desc>
+    <category lang="en">Documentary</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="6">
+    <title lang="en">World Wars</title>
+    <desc lang="en">Military history.</desc>
+    <category lang="en">Documentary</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="6">
+    <title lang="en">Modern History</title>
+    <desc lang="en">Recent historical events.</desc>
+    <category lang="en">Documentary</category>
+  </programme>
+
+  <!-- ================= NATIONAL GEOGRAPHIC WILD ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="7">
+    <title lang="en">Wild Safari</title>
+    <desc lang="en">Wildlife exploration.</desc>
+    <category lang="en">Wildlife</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="7">
+    <title lang="en">Predators</title>
+    <desc lang="en">Animal survival stories.</desc>
+    <category lang="en">Wildlife</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="7">
+    <title lang="en">Night Creatures</title>
+    <desc lang="en">Nocturnal wildlife.</desc>
+    <category lang="en">Wildlife</category>
+  </programme>
+
+  <!-- ================= NATIONAL GEOGRAPHIC ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="8">
+    <title lang="en">Earth Stories</title>
+    <desc lang="en">Planet exploration.</desc>
+    <category lang="en">Science</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="8">
+    <title lang="en">Science Today</title>
+    <desc lang="en">Discoveries explained.</desc>
+    <category lang="en">Science</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="8">
+    <title lang="en">Mega Structures</title>
+    <desc lang="en">Engineering marvels.</desc>
+    <category lang="en">Science</category>
+  </programme>
+
+  <!-- ================= MOTOR TREND ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="9">
+    <title lang="en">Car Reviews</title>
+    <desc lang="en">Latest cars reviewed.</desc>
+    <category lang="en">Auto</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="9">
+    <title lang="en">Super Cars</title>
+    <desc lang="en">High performance vehicles.</desc>
+    <category lang="en">Auto</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="9">
+    <title lang="en">Racing Night</title>
+    <desc lang="en">Motorsport action.</desc>
+    <category lang="en">Auto</category>
+  </programme>
+
+  <!-- ================= NBA TV ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="10">
+    <title lang="en">Classic Games</title>
+    <desc lang="en">Historic NBA matches.</desc>
+    <category lang="en">Sports</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="10">
+    <title lang="en">Live Basketball</title>
+    <desc lang="en">Live NBA coverage.</desc>
+    <category lang="en">Sports</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="10">
+    <title lang="en">Post Game Show</title>
+    <desc lang="en">Analysis and highlights.</desc>
+    <category lang="en">Sports</category>
+  </programme>
+
+  <!-- ================= CARTOON NETWORK ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="11">
+    <title lang="en">Morning Cartoons</title>
+    <desc lang="en">Kids animation.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="11">
+    <title lang="en">Toon Marathon</title>
+    <desc lang="en">Popular cartoons.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="11">
+    <title lang="en">Evening Toons</title>
+    <desc lang="en">Cartoons till night.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+
+  <!-- ================= DISNEY XD ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="12">
+    <title lang="en">Hero Adventures</title>
+    <desc lang="en">Action cartoons.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="12">
+    <title lang="en">Animated Series</title>
+    <desc lang="en">Popular kids shows.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="12">
+    <title lang="en">Night Animation</title>
+    <desc lang="en">Animated adventures.</desc>
+    <category lang="en">Kids</category>
+  </programme>
+
+  <!-- ================= SONY MOVIES ================= -->
+  <programme start="20260121000000 +0000" stop="20260121080000 +0000" channel="13">
+    <title lang="en">Classic Movies</title>
+    <desc lang="en">Hollywood classics.</desc>
+    <category lang="en">Movie</category>
+  </programme>
+  <programme start="20260121080000 +0000" stop="20260121160000 +0000" channel="13">
+    <title lang="en">Matinee Block</title>
+    <desc lang="en">Afternoon movies.</desc>
+    <category lang="en">Movie</category>
+  </programme>
+  <programme start="20260121160000 +0000" stop="20260122000000 +0000" channel="13">
+    <title lang="en">Prime Movie Night</title>
+    <desc lang="en">Blockbuster movies.</desc>
+    <category lang="en">Movie</category>
+  </programme>
+
+</tv>

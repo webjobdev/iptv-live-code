@@ -1,0 +1,45 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
+class CreateSettingsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('settings', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('setting_category_id')->unsigned();
+            $table->string('setting_name');
+            $table->string('setting_value');
+            $table->string('display_name');
+            $table->string('type');
+            $table->string('option')->nullable();
+            $table->string('class')->nullable();
+            $table->integer('order')->default(0);
+            $table->string('description')->nullable();
+            $table->string('is_hidden')->default(0);
+            $table->timestamps();
+
+            $table->foreign('setting_category_id')->references('id')->on('setting_categories')->onDelete('cascade');
+        });
+
+        Cache::forever('setting_table_exist', 1);
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('settings');
+    }
+}

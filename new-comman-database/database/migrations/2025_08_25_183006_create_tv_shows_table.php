@@ -1,0 +1,56 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateTvShowsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('tv_shows', function (Blueprint $table) {
+            $table->id();
+            // $table->text('organization')->nullable();
+            $table->foreignId('organization')->nullable()->constrained('organization_details')->onDelete('cascade');
+            $table->string('poster_image')->nullable();
+            $table->string('thumbnail_image')->nullable();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->date('release_date')->nullable();
+            $table->string('directors')->nullable();
+            $table->string('presenter')->nullable();
+            $table->string('scheduled_time')->nullable();
+            $table->string('expire_scheduled_time')->nullable();
+            $table->string('publish_date')->nullable();
+            $table->string('age_rating')->nullable()->comment("0 = Default Age Rating, 1 = Country based Age Rating");
+            $table->string('age_limit')->nullable();
+            $table->string('is_parental')->nullable();
+            $table->string('content_sets')->nullable();
+            $table->text('geo_block_country_list')->nullable();
+            $table->string('category')->nullable();
+            $table->string('trailer_url')->nullable();
+            $table->string('playback_token')->nullable();
+            $table->string('policy')->nullable();
+            $table->boolean('scheduled_publishing')->nullable()->default(0)->comment("0 for inActive, 1 for Active");
+            $table->boolean('publish_now')->nullable()->default(0)->comment("0 for inActive, 1 for Active");
+            $table->boolean('geo_policy')->nullable()->default(0)->comment("0 for inActive, 1 for Active");
+            $table->boolean('is_active')->nullable()->default(0)->comment("0 for inActive, 1 for Active");
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('tv_shows');
+    }
+}

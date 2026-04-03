@@ -1,0 +1,12 @@
+{
+    "name": "contus/playlist",
+    "description": "This package is used to manage playlist.",
+    "authors": [
+        {
+            "name": "Bilal Shareef",
+            "email": "bilalshareef.h@contus.in"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

@@ -1,0 +1,350 @@
+<?php
+
+namespace Contus\User\Api\Controllers\Admin;
+
+use Illuminate\Http\Request;
+use Contus\User\Repositories\AdminUserRepository;
+use Contus\Base\Repositories\UploadRepository;
+use Contus\User\Repositories\AdminUserGroupRepository;
+use Contus\Base\ApiController;
+use Contus\Base\Helpers\StringLiterals;
+use Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\JWTAuth;
+
+class AdminUserController extends ApiController
+{
+
+    /**
+     * class property to hold the instance of UploadRepository
+     *
+     * @var \Contus\Base\Repositories\UploadRepository
+     */
+    public $uploadRepository;
+    public $repository;
+    /**
+     * class property to hold the instance of AdminUserGroupRepository
+     *
+     * @var \Contus\User\Repositories\AdminUserGroupRepository
+     */
+    public $adminUserGroupRepository;
+    /**
+     * Construct method
+     */
+    public function __construct(AdminUserRepository $adminUserRepository, UploadRepository $uploadRepository, AdminUserGroupRepository $adminUserGroupRepository)
+    {
+        parent::__construct();
+        $this->repository = $adminUserRepository;
+        $this->uploadRepository = $uploadRepository;
+        $this->adminUserGroupRepository = $adminUserGroupRepository;
+    }
+
+    /**
+     * To get the user info.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getInfo()
+    {
+        // Log::info("Controller User Group : ", [AdminUserGroupRepository::class]);
+        return $this->getSuccessJsonResponse([
+            'info' => [
+                'rules' => $this->repository->getRules(),
+                'allUserGroups' => AdminUserGroupRepository::getAllUserGroups()
+            ]
+        ]);
+    }
+
+    /**
+     * To get the changepassword info.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getChangePasswordInfo()
+    {
+        return $this->getSuccessJsonResponse(['rules' => $this->repository->setRules(['old_password' => 'required', 'password' => 'required|confirmed', 'password_confirmation' => 'required|same:password'])->getRules()]);
+    }
+
+    /**
+     * Merchant change password
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function postChangepassword()
+    {
+        $isCreated = false;
+
+        if ($this->repository->changePassword()) {
+            $isCreated = true;
+            $this->request->session()->flash(StringLiterals::SUCCESS, trans('user::adminuser.changepassword.success'));
+        }
+
+        return ($isCreated) ? $this->getSuccessJsonResponse([], trans('user::adminuser.changepassword.success')) : $this->getErrorJsonResponse([], trans('user::adminuser.changepassword.incorrect'));
+    }
+
+    /**
+     * Store a newly created admin user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function postAdd()
+    {
+        $isCreated = false;
+
+        if ($this->repository->addOrUpdateUsers()) {
+            $isCreated = true;
+            // $this->request->session()->flash(StringLiterals::SUCCESS, trans('user::adminuser.success'));
+        }
+
+        return ($isCreated) ? $this->getSuccessJsonResponse(['message' => trans('user::adminuser.success')]) : $this->getErrorJsonResponse([], trans('user::adminuser.error'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param int $id 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function postEdit($id)
+    {
+        $isCreated = false;
+        if ($this->repository->addOrUpdateUsers($id)) {
+            $isCreated = true;
+            // $this->request->session()->flash('success', trans('user::adminuser.updated'));
+        }
+        return ($isCreated) ? $this->getSuccessJsonResponse(['message' => trans('user::adminuser.updated')]) : $this->getErrorJsonResponse([], trans('user::adminuser.updatedError'));
+    }
+
+    /**
+     * Controller function to delete profile image of a user.
+     *
+     * @param integer $id
+     * The id of the user.
+     * @return Ambigous <\Contus\Base\response, \Illuminate\Http\JsonResponse>
+     */
+    public function postDeleteProfileImage($id)
+    {
+        $isProfileImageDeleted = false;
+        try {
+            /**
+             * Call the deleteProfileImage repository method to delete profile image of a user.
+             */
+            if ($this->repository->deleteProfileImage($id)) {
+                $isProfileImageDeleted = true;
+                $this->request->session()->flash(StringLiterals::SUCCESS, trans('user::user.message.profile-image-delete-success'));
+            }
+        } catch (Exception $e) {
+            /**
+             * Handle the error exception when the user of the profile image does not exist.
+             */
+            $this->request->session()->flash(StringLiterals::ERROR, trans('user::user.user_not_exist'));
+            $isProfileImageDeleted = true;
+        }
+        /**
+         * If the profile image is deleted successfully, return the success response.
+         * If the profile image is not deleted successfully, return the failure resposne.
+         */
+        return ($isProfileImageDeleted) ? $this->getSuccessJsonResponse([StringLiterals::MESSAGE => trans('user::user.message.profile-image-delete-success')]) : $this->getErrorJsonResponse([], trans('user::user.message.profile-image-delete-error'));
+    }
+
+    /**
+     * To get the data to edit
+     *
+     * @param int $id 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getEdit()
+    {
+        $getUserData = $this->repository->getUser($this->auth->user()->id);
+        // dd($getUserData);
+
+        return (is_null($getUserData)) ? $this->getErrorJsonResponse([], null, 404) : $this->getSuccessJsonResponse(['response' => $getUserData]);
+    }
+
+    public function getUserEdit()
+    {
+        // $getUserData = $this->repository->getUserProfile($this->auth->user()->id);
+
+        // return (is_null($getUserData)) ? $this->getErrorJsonResponse([], null, 404) : $this->getSuccessJsonResponse(['response' => $getUserData]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request 
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id 
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id 
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request 
+     * @param int $id 
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id 
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+    /**
+     * Update default grid view for logged in user
+     *
+     * @param int $option 
+     * @return \Illuminate\Http\Response
+     */
+    public function getUpdategridview($option)
+    {
+        $isSaved = false;
+        $this->auth->user()->default_grid_view = $option;
+        if ($this->auth->user()->save()) {
+            $isSaved = true;
+        }
+        return ($isSaved) ? $this->getSuccessJsonResponse([], trans('base::general.updated')) : $this->getErrorJsonResponse([], trans('base::general.updated_error'), 403);
+    }
+    /**
+     * Check user email is unique
+     *
+     * @param int $id 
+     * @return \Illuminate\Http\Response
+     */
+    public function getUnique($id = null)
+    {
+        $isUnique = $this->repository->isUniqueUserEmail($id);
+        return ($isUnique) ? $this->getSuccessJsonResponse([], 'Success') : $this->getErrorJsonResponse([], 'Failed');
+    }
+
+    /**
+     * Upload the profile image
+     *
+     * @param string $modelIdentifier 
+     * @return Response
+     */
+
+    public function postProfileImage()
+    {
+        $moduleName = 'profile';
+        $tempImageInfo = $this->uploadRepository->setModelIdentifier(UploadRepository::MODEL_IDENTIFIER_ADMIN_USER_PROFILE)
+            ->tempPrepare()->tempUpload($moduleName, $this->request->size);
+
+        return empty($tempImageInfo) ? $this->getErrorJsonResponse([], trans('video::videos.messsage.unable_to_upload')) : $this->getSuccessJsonResponse(['info' => array_shift($tempImageInfo)]);
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param int $id 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function profileUpdate($id)
+    {
+        $isCreated = false;
+        if ($this->repository->addOrUpdateUsers($id)) {
+            $isCreated = true;
+        }
+        return ($isCreated) ? $this->getSuccessJsonResponse(['message' => trans('user::adminuser.profile_update')]) : $this->getErrorJsonResponse([], trans('user::adminuser.profile_update_err'));
+    }
+
+    public function postRecords()
+    {
+        // if (property_exists($this, StringLiterals::REPOSITORY) && $this->repository instanceof GridableRepository) {
+        $response = ['data' => $this->repository->fetchRecord()];
+        // dd($response);
+        if ($this->request->input('intialRequest') == 1) {
+            $response['heading'] = $this->repository->getGridHeadings();
+            $response['moreInfo'] = $this->repository->getGridAdditionalInformation();
+            $response['recordsCount'] = $this->repository->getCount();
+        }
+        // dd($response);
+        return $this->getSuccessJsonResponse($response);
+        // }
+
+        // throw new BadMethodCallException("Method [postRecords] does not exist.");
+    }
+
+
+
+    public function checkToken(Request $request)
+    {
+        Validator::make($request->all(), [
+            'token' => 'required'
+        ]);
+
+        // $user = JWTAuth::toUser($request->token);
+
+        $user = $this->repository->getToken($request->token);
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Token is invalid or expired'
+            ], 401);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Token is valid',
+            'user_id' => $user->id
+        ]);
+    }
+
+}

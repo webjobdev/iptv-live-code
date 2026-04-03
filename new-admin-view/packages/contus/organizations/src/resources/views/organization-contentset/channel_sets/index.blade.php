@@ -1,0 +1,43 @@
+@extends('base::layouts.default')
+
+@section('header')
+@include('base::layouts.headers.dashboard')
+@endsection
+
+<style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+</style>
+
+@section('content')
+<div data-ng-controller="ContentSetsController as setCtrl">
+    <div class="" id="dashboard-page">
+        <div class="page-heading flexbox align-items-center flex-wrap">
+            <h4>{{ __('organizations::index.organization') }}</h4>
+        </div>
+
+        @include('base::layouts.subnav')
+
+        <div class="contentpanel product order_list">
+            @include('base::partials.errors')
+            <div class="response-msg"></div>
+        </div>
+
+        @include('organizations::organization-contentset.common.SubMenu')
+
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+<script src="{{asset('adminview/assets/js/classieSidebarEffects.js')}}"></script>
+<script src="{{asset('adminview/assets/js/classieSidebarEffectsDirective.js')}}"></script>
+<script src="{{asset('adminview/assets/js/canvasjs.min.js')}}"></script>
+<script src="{{asset('adminview/assets/js/requestFactory.js')}}"></script>
+<script src="{{asset('adminview/assets/js/gridView.js')}}"></script>
+<script src="{{asset('adminview/assets/js/organization/contentset/contentset.js')}}"></script>
+<script src="{{asset('adminview/assets/js/common/common.js')}}"></script>
+<script src="{{asset('adminview/assets/js/grid.js')}}"></script>
+<script src="{{asset('adminview/assets/js/common/directive.js')}}"></script>
+@endsection
