@@ -15,7 +15,7 @@ namespace Contus\Notification\Models;
 
 use Contus\Customer\Models\Customer;
 use Contus\Video\Models\Video;
-use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+use MongoDB\Laravel\Eloquent\Model as Eloquent;
 
 class Notification extends Eloquent
 {

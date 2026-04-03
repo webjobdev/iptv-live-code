@@ -15,7 +15,7 @@ namespace Contus\Video\Models;
 
 use Contus\Video\Models\Video;
 use Contus\Customer\Models\Customer;
-use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+use MongoDB\Laravel\Eloquent\Model as Eloquent;
 use Carbon\Carbon;
 
 class Like extends Eloquent

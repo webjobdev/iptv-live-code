@@ -33,7 +33,7 @@ use Contus\User\Models\User;
 use Carbon\Carbon;
 use Contus\Video\Traits\VideoTrait;
 use Contus\Video\Models\Group;
-use Jenssegers\Mongodb\Eloquent\HybridRelations;
+use MongoDB\Laravel\Eloquent\HybridRelations;
 use Contus\Video\Models\Tag;
 
 class Video extends Model implements AttachableModel

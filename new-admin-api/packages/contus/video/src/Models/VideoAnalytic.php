@@ -13,7 +13,7 @@
  */
 namespace Contus\Video\Models;
 
-use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+use MongoDB\Laravel\Eloquent\Model as Eloquent;
 use Contus\Base\Model;
 
 class VideoAnalytic extends Eloquent

@@ -29,7 +29,7 @@ use phpDocumentor\Reflection\Types\Object_;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\UploadedFile;
 
-use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+use MongoDB\Laravel\Eloquent\Model as Eloquent;
 
 class MongoModel extends Eloquent {
 
@@ -137,7 +137,7 @@ class MongoModel extends Eloquent {
             if(!is_writeable($publicPath)){
                 chmod($publicPath, 0777);
 
-            } 
+            }
             $destinationPath = public_path () . DIRECTORY_SEPARATOR . 'contus' . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR;
 
             if (!is_dir($destinationPath)) {

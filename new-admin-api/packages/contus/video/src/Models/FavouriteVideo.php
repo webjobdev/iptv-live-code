@@ -17,7 +17,7 @@ use Contus\Base\Model;
 use Contus\Video\Models\Category;
 use Contus\Video\Models\Collection;
 use Contus\Video\Models\Video;
-use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+use MongoDB\Laravel\Eloquent\Model as Eloquent;
 class FavouriteVideo extends Eloquent {
    /**
      * The database table used by the model.
@@ -29,14 +29,14 @@ class FavouriteVideo extends Eloquent {
      */
     protected $collection = 'favourite_videos';
     protected $connection = 'mongodb';
-   
+
     /**
      * The primary key used by the model.
      *
      * @var string
      */
     protected $primaryKey = '_id';
-    
+
     /**
      * The attributes that are mass assignable.
      *

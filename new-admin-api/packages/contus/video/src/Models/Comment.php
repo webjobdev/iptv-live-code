@@ -17,7 +17,7 @@ use Contus\Video\Models\ReplyComment;
 use Contus\Video\Models\Video;
 use Contus\User\Models\User;
 use Contus\Customer\Models\Customer;
-use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+use MongoDB\Laravel\Eloquent\Model as Eloquent;
 use Carbon\Carbon;
 
 class Comment extends Eloquent
@@ -31,7 +31,7 @@ class Comment extends Eloquent
      * @package Video
      * @var string
      */
-   
+
     protected $collection = 'comments';
     protected $connection = 'mongodb';
     protected $appends = ['reply_comment','reply_count','customer_details'];
@@ -118,8 +118,8 @@ class Comment extends Eloquent
     }
 
     public function getCustomerDetailsAttribute()
-    {  
-       
+    {
+
         return Customer::where('id',$this->customer_id)->select('id','name','profile_picture')->first();
     }
 }
